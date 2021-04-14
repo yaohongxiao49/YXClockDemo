@@ -13,7 +13,7 @@
 @property (nonatomic, strong) NSTimer *timer;
 @property (nonatomic, strong) CALayer *pointLayer;
 @property (nonatomic, assign) CGFloat publicDegreeSeconds;
-@property (nonatomic, strong) YXClockModel *model;
+@property (nonatomic, assign) BOOL boolInit;
 
 @end
 
@@ -23,7 +23,7 @@
     self = [super initWithFrame:frame];
     
     if (self) {
-        self.model = model;
+        if (model) self.model = model;
         [self initView];
     }
     return self;
@@ -49,33 +49,31 @@
     CGFloat degreeMinutes = minutes *kDegreeMinutes + seconds *kDegreeMinutesBySecond;
     CGFloat degreeHours = hours *kDegreeHours + minutes *kDegreeHoursByMinutes;
     
-    _publicDegreeSeconds = kAngle2raditon(degreeSeconds - 1);
     if (self.model.type == YXClockModelGoTypeContinuous) {
         [self.secondsHand removeAnimationForKey:@"transform"];
         CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"transform"];
         animation.duration = 1.f;
         animation.removedOnCompletion = NO;
-        animation.delegate = self;
+        animation.fillMode = kCAFillModeForwards;
         animation.fromValue = [NSValue valueWithCATransform3D:CATransform3DMakeRotation(_publicDegreeSeconds, 0, 0, 1)];
         animation.toValue = [NSValue valueWithCATransform3D:CATransform3DMakeRotation(kAngle2raditon(degreeSeconds), 0, 0, 1)];
-        [self.secondsHand addAnimation:animation forKey:@"transform"];
+        
+        if (_boolInit) {
+            [self.secondsHand addAnimation:animation forKey:@"transform"];
+        }
+        else {
+            self.secondsHand.transform = CATransform3DMakeRotation(kAngle2raditon(degreeSeconds), 0, 0, 1);
+            _boolInit = YES;
+        }
+        _publicDegreeSeconds = kAngle2raditon(degreeSeconds);
     }
     else {
         [self.secondsHand removeAnimationForKey:@"transform"];
         self.secondsHand.transform = CATransform3DMakeRotation(kAngle2raditon(degreeSeconds), 0, 0, 1);
+        _boolInit = NO;
     }
     self.minutesHand.transform = CATransform3DMakeRotation(kAngle2raditon(degreeMinutes), 0, 0, 1);
     self.hoursHand.transform = CATransform3DMakeRotation(kAngle2raditon(degreeHours), 0, 0, 1);
-}
-
-#pragma mark - <CAAnimationDelegate>
-- (void)animationDidStart:(CAAnimation *)anim {
-    
-    self.secondsHand.transform = CATransform3DMakeRotation(_publicDegreeSeconds, 0, 0, 1);
-}
-- (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag {
-    
-    self.secondsHand.transform = CATransform3DMakeRotation(_publicDegreeSeconds, 0, 0, 1);
 }
 
 #pragma mark - setting

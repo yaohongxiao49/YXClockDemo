@@ -35,6 +35,8 @@ NS_ASSUME_NONNULL_BEGIN
 /** 时针 */
 @property(nonatomic, strong) CALayer *hoursHand;
 
+@property (nonatomic, strong) YXClockModel *model;
+
 - (instancetype)initWithFrame:(CGRect)frame model:(YXClockModel *)model;
 /** 关闭定时器 */
 - (void)stopTimer;
