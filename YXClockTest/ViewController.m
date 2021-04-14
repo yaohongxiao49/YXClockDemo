@@ -27,11 +27,10 @@
     
     _model = [[YXClockModel alloc] init];
     _model.typeChain(YXClockModelGoTypeContinuous).clockBgImgChain(img)
-    .hoursDegreeColorChain([UIColor whiteColor]).hoursDegreeCornerChain(2).hoursDegreeWidthChain(2).hoursDegreeMarginChain(58)
-    .minutesDegreeColorChain([UIColor whiteColor]).minutesDegreeCornerChain(1).minutesDegreeWidthChain(1.5).minutesDegreeMarginChain(38)
-    .secondsDegreeColorChain([UIColor whiteColor]).secondsDegreeCornerChain(0).secondsDegreeWidthChain(1).secondsDegreeMarginChain(10)
+    .hoursDegreeColorChain([UIColor whiteColor]).hoursDegreeCornerChain(2).hoursDegreeWidthChain(2).hoursDegreeMarginChain(60)
+    .minutesDegreeColorChain([UIColor whiteColor]).minutesDegreeCornerChain(1).minutesDegreeWidthChain(1.5).minutesDegreeMarginChain(40)
+    .secondsDegreeColorChain([UIColor whiteColor]).secondsDegreeCornerChain(0).secondsDegreeWidthChain(1).secondsDegreeMarginChain(24)
     .centerDegreeColorChain([UIColor whiteColor]).centerDegreeWidthChain(10).centerDegreeCornerChain(5);
-    
     
     _clockView = [[YXClockView alloc] initWithFrame:CGRectMake(0, 0, 175, 175) model:_model];
     _clockView.center = self.view.center;
