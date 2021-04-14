@@ -26,27 +26,12 @@
     UIImage *img = [UIImage imageNamed:@"YXClockImg"];
     
     _model = [[YXClockModel alloc] init];
-    _model.type = YXClockModelGoTypeContinuous;
-    _model.clockBgImg = img;
+    _model.typeChain(YXClockModelGoTypeContinuous).clockBgImgChain(img)
+    .hoursDegreeColorChain([UIColor whiteColor]).hoursDegreeCornerChain(2).hoursDegreeWidthChain(2).hoursDegreeMarginChain(58)
+    .minutesDegreeColorChain([UIColor whiteColor]).minutesDegreeCornerChain(1).minutesDegreeWidthChain(1.5).minutesDegreeMarginChain(38)
+    .secondsDegreeColorChain([UIColor whiteColor]).secondsDegreeCornerChain(0).secondsDegreeWidthChain(1).secondsDegreeMarginChain(10)
+    .centerDegreeColorChain([UIColor whiteColor]).centerDegreeWidthChain(10).centerDegreeCornerChain(5);
     
-    _model.hoursDegreeColor = [UIColor whiteColor];
-    _model.hoursDegreeCorner = 2;
-    _model.hoursDegreeWidth = 2;
-    _model.hoursDegreeMargin = 58;
-    
-    _model.minutesDegreeColor = [UIColor whiteColor];
-    _model.minutesDegreeCorner = 1;
-    _model.minutesDegreeWidth = 1.5;
-    _model.minutesDegreeMargin = 38;
-    
-    _model.secondsDegreeColor = [UIColor whiteColor];
-    _model.secondsDegreeCorner = 0;
-    _model.secondsDegreeWidth = 1;
-    _model.secondsDegreeMargin = 10;
-    
-    _model.centerDegreeColor = [UIColor whiteColor];
-    _model.centerDegreeWidth = 10;
-    _model.centerDegreeCorner = 5;
     
     _clockView = [[YXClockView alloc] initWithFrame:CGRectMake(0, 0, 175, 175) model:_model];
     _clockView.center = self.view.center;
