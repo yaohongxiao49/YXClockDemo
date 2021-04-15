@@ -74,6 +74,10 @@
     }
     self.minutesHand.transform = CATransform3DMakeRotation(kAngle2raditon(degreeMinutes), 0, 0, 1);
     self.hoursHand.transform = CATransform3DMakeRotation(kAngle2raditon(degreeHours), 0, 0, 1);
+    
+    if (self.yxClockViewTimeBlock) {
+        self.yxClockViewTimeBlock(hours, minutes, seconds);
+    }
 }
 
 #pragma mark - setting
@@ -115,6 +119,7 @@
     
     if (!_imgV) {
         _imgV = [[UIImageView alloc] initWithFrame:self.bounds];
+        [_imgV setImage:[UIImage imageNamed:@"YXWhiteClockImg"]];
         _imgV.contentMode = UIViewContentModeScaleAspectFit;
         _imgV.backgroundColor = [UIColor clearColor];
         [self addSubview:_imgV];
@@ -125,8 +130,8 @@
     
     if (!_hoursHand) {
         _hoursHand = [CALayer layer];
-        _hoursHand.backgroundColor = [UIColor blackColor].CGColor;
-        _hoursHand.bounds = CGRectMake(0, 0, 4, kDegreeDiameter *0.5 - 40);
+        _hoursHand.backgroundColor = [UIColor whiteColor].CGColor;
+        _hoursHand.bounds = CGRectMake(0, 0, 2, kDegreeDiameter *0.5 - 60);
         _hoursHand.anchorPoint = CGPointMake(0.5, 1);
         _hoursHand.position = CGPointMake(kDegreeDiameter *0.5, kDegreeDiameter *0.5);
         _hoursHand.cornerRadius = 4;
@@ -138,11 +143,11 @@
     
     if (!_minutesHand) {
         _minutesHand = [CALayer layer];
-        _minutesHand.bounds = CGRectMake(0, 0, 4, kDegreeDiameter *0.5 - 20);
-        _minutesHand.backgroundColor = [UIColor blackColor].CGColor;
+        _minutesHand.bounds = CGRectMake(0, 0, 1.5, kDegreeDiameter *0.5 - 40);
+        _minutesHand.backgroundColor = [UIColor whiteColor].CGColor;
         _minutesHand.anchorPoint = CGPointMake(0.5, 1);
         _minutesHand.position = CGPointMake(kDegreeDiameter *0.5, kDegreeDiameter *0.5);
-        _minutesHand.cornerRadius = 4;
+        _minutesHand.cornerRadius = 3;
         [self.imgV.layer addSublayer:_minutesHand];
     }
     return _minutesHand;
@@ -151,10 +156,11 @@
     
     if (!_secondsHand) {
         _secondsHand = [CALayer layer];
-        _secondsHand.bounds = CGRectMake(0, 0, 1.5, kDegreeDiameter *0.5 - 20);
-        _secondsHand.backgroundColor = [UIColor redColor].CGColor;
+        _secondsHand.bounds = CGRectMake(0, 0, 1, kDegreeDiameter *0.5 - 24);
+        _secondsHand.backgroundColor = [UIColor whiteColor].CGColor;
         _secondsHand.anchorPoint = CGPointMake(0.5, 1);
         _secondsHand.position = CGPointMake(kDegreeDiameter *0.5, kDegreeDiameter *0.5);
+        _secondsHand.cornerRadius = 2;
         [self.imgV.layer addSublayer:_secondsHand];
     }
     return _secondsHand;

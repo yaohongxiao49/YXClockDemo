@@ -25,6 +25,8 @@ NS_ASSUME_NONNULL_BEGIN
 /** 角度 */
 #define kAngle2raditon(degree) ((degree) /180.0 *M_PI)
 
+typedef void(^YXClockViewTimeBlock)(CGFloat hours, CGFloat minutes, CGFloat seconds);
+
 @class YXClockView;
 @interface YXClockView : UIView
 
@@ -36,6 +38,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, strong) CALayer *hoursHand;
 
 @property (nonatomic, strong) YXClockModel *model;
+@property (nonatomic, copy) YXClockViewTimeBlock yxClockViewTimeBlock;
 
 - (instancetype)initWithFrame:(CGRect)frame model:(YXClockModel *)model;
 /** 关闭定时器 */
